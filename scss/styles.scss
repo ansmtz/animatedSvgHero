@@ -1,210 +1,267 @@
-*, *::after, *::before {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@import './vars';
+@import "./vars";
 @font-face {
-    font-family: LogoType;
-    src: url('./fonts/CircularStd-Black.otf');
+  font-family: LogoType;
+  src: url("./fonts/CircularStd-Black.otf");
 }
 
 h1 {
-    font-family: Ramaraja, serif;
+  font-family: Ramaraja, serif;
 }
 
 body {
-    font-family: Roboto, sans-serif;
-    overflow-x: hidden;
+  font-family: Roboto, sans-serif;
+  overflow-x: hidden;
 }
 a {
-    text-decoration: none;
-    font-family: Roboto;
-    font-size: 1rem;
-    color: $secondary;
-    letter-spacing: 0.02em;
+  text-decoration: none;
+  font-family: Roboto;
+  font-size: 1rem;
+  color: $secondary;
+  letter-spacing: 0.02em;
 }
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem 0;
+  @media (max-width: 1010px) {
+    flex-wrap: wrap;
+  }
+  &__logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: LogoType;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    color: #0a1b32;
+    &-dot {
+      color: $primary;
+    }
+  }
+  &__navigation {
+    flex: 70%;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2rem;
+    align-items: center;
+    color: $secondary;
+    font-family: Roboto;
+    &-item::after {
+      content: "";
+      display: block;
+      background-color: #0a1b32;
+      width: 100%;
+      height: 3px;
+      transform-origin: center;
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    }
+    &-item:hover::after {
+      transform: scale(1);
+      opacity: 1;
+    }
+    @media (max-width: 1010px) {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1 100%;
+      width: 100%;
+      margin: 0;
+      border-bottom: 2px solid #9a9a9a;
+    }
+    &-item {
+      padding: 1em;
+      @media (max-width: 1010px) {
+        padding: 1rem 0;
+      }
+    }
+  }
+  &__login {
+    flex: 20%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    margin: 0 auto;
-    padding: 2rem 0; 
-    @media (max-width: 600px) {
+    @media (max-width: 1010px) {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1 100%;
+      width: 100%;
+      margin: 0;
+      > * {
+        padding: 3rem 0;
+      }
+    }
+  }
+}
+.expanded {
+  display: flex;
+}
+.toggle-menu-container {
+  display: none;
+  @media (max-width: 1010px) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
 
-        flex-wrap: wrap;
+    > button {
+      display: flex;
+      width: 2rem;
+      height: 2rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
     }
-    &__logo {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        font-family: LogoType;
-        font-size: 2rem;
-        letter-spacing: -0.02em;
-        color: #0A1B32;
-        &-dot {
-            color: #4F56F1;
-        }
-    }
-    &__navigation {
-        flex: 70%;
-        display: flex;
-        justify-content: flex-start;
-        margin-left: 2rem;
-        align-items: center;
-        color: $secondary;
-        font-family: Roboto;
-        @media (max-width: 600px) {
-            display: none;
-        }
-        &-item {
-            padding: 1em;
-        }
-    }
-    &__login {
-        flex: 20%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        @media (max-width: 600px) {
-            display: none;
-        }
-    }
+  }
 }
 .btn-primary {
-    color: $white;
-    background-color: $primary;
-    padding: 1em 2em;
-    text-transform: capitalize;
-    font-weight: 700;
-    text-align: center;
-    border-radius: .5rem;
+  display: flex;
+  max-width: 160px;
+  color: $white;
+  background-color: $primary;
+  padding: 1em 2em;
+  text-transform: capitalize;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  transition: all 0.8s ease-out;
+}
+
+.btn-primary:hover {
+  background-color: $primary-light;
+}
+
+.btn-primary:active {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .hero {
-    display: grid;
-    width: 80%;
-    margin: 0 auto;
-    grid-template-columns: max-content auto;
-    @media (max-width: 600px) {
-        grid-template-columns: 1fr;
-        grid-template-rows: max-content auto;
+  display: grid;
+  width: 80%;
+  margin: 0 auto;
+  grid-template-columns: max-content auto;
+  @media (max-width: 1010px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content auto;
+  }
+  &__title {
+    align-self: center;
+    grid-column: 1/2;
+    max-width: 500px;
+    h1 {
+      font-size: 4rem;
+      color: $secondary;
+      line-height: 4.3rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.8rem;
     }
-    &__title{
-        align-self: center;
-        grid-column: 1/2;
-        max-width: 500px;
-        h1 {
-            font-size: 4rem;
-            color: $secondary;
-            line-height: 4.3rem;
-            letter-spacing: 0.02em;
-            margin-bottom: .8rem;
-        }
-        p {
-            font-size: 1.2rem;
-            color: #9A9A9A;
-            margin-bottom: 4rem;
-        }
-        @media (max-width: 600px) {
-            grid-row: 2/3;
-        }
+    p {
+      font-size: 1.2rem;
+      color: #9a9a9a;
+      margin-bottom: 4rem;
     }
+    @media (max-width: 1010px) {
+      grid-row: 2/3;
+    }
+  }
 
-    &__svg-container {
-        grid-column: 2/3;
-        width: 100%;
-        min-width: 300px;
-        max-width: 800px;
-        justify-self: end;
-        @media (max-width: 600px) {
-            width: 100%;
-            grid-column: 1/2;
-            grid-row: 1/2;
-        }
+  &__svg-container {
+    grid-column: 2/3;
+    width: 100%;
+    min-width: 300px;
+    max-width: 800px;
+    justify-self: end;
+    @media (max-width: 1010px) {
+      width: 100%;
+      grid-column: 1/2;
+      grid-row: 1/2;
     }
+  }
 }
 
 #svg {
-    width :100%;
-    animation: slideIn .6s ease-out .2s;
+  width: 100%;
+  animation: slideIn 0.6s ease-out 0.2s;
 }
 
-
-
 #Body {
-    transform-origin: 50% 100%;
-    animation: bodyAnimation 2s ease-in alternate infinite;
+  transform-origin: 50% 100%;
+  animation: bodyAnimation 2s ease-in alternate infinite;
 }
 
 #leaf-1 {
-    transform-origin: 0% 100%;
+  transform-origin: 0% 100%;
 
-    animation: leafAnimation 2s ease-in alternate-reverse infinite;
-
+  animation: leafAnimation 2s ease-in alternate-reverse infinite;
 }
 
 #leaf-2 {
-    transform-origin: 0% 100%;
-    animation: leafAnimation 2s ease-in alternate-reverse infinite;
-
+  transform-origin: 0% 100%;
+  animation: leafAnimation 2s ease-in alternate-reverse infinite;
 }
 
 #leaf-3 {
-    transform-origin: 100% 100%;
-    animation: leafAnimation 2s ease-in alternate-reverse infinite;
+  transform-origin: 100% 100%;
+  animation: leafAnimation 2s ease-in alternate-reverse infinite;
 }
 
 #bg-blob {
-    animation: scaling 6s ease-in alternate infinite;
+  animation: scaling 6s ease-in alternate infinite;
 }
 
 #bg-leafs {
-    transform-origin: 50% 100%;
-    animation: slideIn .9s ease-out .3s infinite alternate;
+  transform-origin: 50% 100%;
+  animation: slideIn 0.9s ease-out 0.3s infinite alternate;
 }
 
-
-
-
 @keyframes bodyAnimation {
-    0% {
-        transform: rotate(3deg);
-    }
-    100% {
-        transform: rotate(-3deg);
-    }
+  0% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(-3deg);
+  }
 }
 
 @keyframes leafAnimation {
-    0% {
-        transform: rotate(1deg);
-    }
-    100% {
-        transform: rotate(-1deg);
-    }
+  0% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(-1deg);
+  }
 }
 
 @keyframes scaling {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(.9);
-    }
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.8);
+  }
 }
 
 @keyframes slideIn {
-    0% {
-        transform: translateX(-4px);
-    }
+  0% {
+    transform: translateX(-4px);
+  }
 
-    100% {
-        transform: translateX(0);
-    }
+  100% {
+    transform: translateX(0);
+  }
 }
-
-
-
